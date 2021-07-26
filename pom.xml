@@ -8,7 +8,6 @@
 	<groupId>com.zazuko</groupId>
 	<artifactId>carml-service</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -22,21 +21,15 @@
 	</properties>
 
 	<dependencies>
-		<!-- meecrowave <dependency> <groupId>org.apache.meecrowave</groupId> <artifactId>meecrowave-core</artifactId> 
-			<version>${meecrowave-core.version}</version> </dependency> <dependency> 
-			<groupId>org.apache.meecrowave</groupId> <artifactId>meecrowave-jpa</artifactId> 
-			<version>${meecrowave-jpa.version}</version> </dependency> -->
 		<dependency>
-			<groupId>org.apache.tomee</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>8.0-1</version>
-			<scope>provided</scope>
+			<groupId>org.apache.meecrowave</groupId>
+			<artifactId>meecrowave-core</artifactId>
+			<version>${meecrowave-core.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.cxf</groupId>
-			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
-			<version>3.3.8</version>
-			<scope>provided</scope>
+			<groupId>org.apache.meecrowave</groupId>
+			<artifactId>meecrowave-jpa</artifactId>
+			<version>${meecrowave-jpa.version}</version>
 		</dependency>
 
 		<dependency>
@@ -50,56 +43,22 @@
 			<version>0.3.2</version>
 		</dependency>
 		<dependency>
-				<groupId>org.eclipse.rdf4j</groupId>
-				<artifactId>rdf4j-rio-ntriples</artifactId>
-				<version>${rdf4j.version}</version>
-			</dependency>
+			<groupId>org.eclipse.rdf4j</groupId>
+			<artifactId>rdf4j-rio-ntriples</artifactId>
+			<version>${rdf4j.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
 		<plugins>
 
-			<!-- meecrowave <plugin> <groupId>org.apache.meecrowave</groupId> <artifactId>meecrowave-maven-plugin</artifactId> 
-				<version>${meecrowave-maven-plugin.version}</version> </plugin> -->
 			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-				</configuration>
+				<groupId>org.apache.meecrowave</groupId>
+				<artifactId>meecrowave-maven-plugin</artifactId>
+				<version>${meecrowave-maven-plugin.version}</version>
 			</plugin>
 		</plugins>
 	</build>
-
-	<profiles>
-		<profile>
-			<id>tomee</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.tomee.maven</groupId>
-						<artifactId>tomee-maven-plugin</artifactId>
-						<version>${tomee.version}</version>
-						<executions>
-							<execution>
-								<id>executable-jar</id>
-								<phase>package</phase>
-								<goals>
-									<goal>exec</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<context>ROOT</context>
-							<tomeeClassifier>microprofile</tomeeClassifier>
-							<simpleLog>true</simpleLog>
-						</configuration>
-					</plugin>
-
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 
 
 </project>
