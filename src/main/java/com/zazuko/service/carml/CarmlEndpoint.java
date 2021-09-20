@@ -6,7 +6,7 @@ import java.io.StringWriter;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.enterprise.context.RequestScoped;
+// import javax.enterprise.context.RequestScoped;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonWriter;
@@ -32,7 +32,7 @@ import com.taxonic.carml.model.TriplesMap;
 import com.taxonic.carml.util.RmlMappingLoader;
 import com.taxonic.carml.vocab.Rdf;
 
-@RequestScoped
+// @RequestScoped
 @Path("/")
 public class CarmlEndpoint {
 
