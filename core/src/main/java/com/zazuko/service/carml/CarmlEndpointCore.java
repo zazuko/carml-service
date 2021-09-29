@@ -3,10 +3,8 @@ package com.zazuko.service.carml;
 import java.io.ByteArrayInputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Optional;
 import java.util.Set;
 
-// import javax.enterprise.context.RequestScoped;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonWriter;
@@ -21,7 +19,6 @@ import javax.ws.rs.core.Response;
 
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
-import org.eclipse.rdf4j.common.lang.FileFormat;
 import org.eclipse.rdf4j.model.Model;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.Rio;
@@ -32,9 +29,8 @@ import com.taxonic.carml.model.TriplesMap;
 import com.taxonic.carml.util.RmlMappingLoader;
 import com.taxonic.carml.vocab.Rdf;
 
-// @RequestScoped
-@Path("/")
-public class CarmlEndpoint {
+
+public class CarmlEndpointCore {
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)

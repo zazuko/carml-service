@@ -1,4 +1,4 @@
-package com.zazuko.service.carml;
+package com.zazuko.service.server;
 
 import org.apache.meecrowave.Meecrowave;
 

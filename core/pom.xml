@@ -3,38 +3,25 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<name>meecrowave</name>
+	<name>core</name>
 	<parent>
 		<groupId>com.zazuko.carml-service</groupId>
 		<artifactId>root</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>meecrowave</artifactId>
+	<artifactId>core</artifactId>
 	<packaging>jar</packaging>
-	
+
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<slf4j.version>1.7.25</slf4j.version>
-		<meecrowave-junit.version>1.2.0</meecrowave-junit.version>
-		<meecrowave-jpa.version>1.2.11</meecrowave-jpa.version>
-		<meecrowave-core.version>1.2.11</meecrowave-core.version>
-		<meecrowave-maven-plugin.version>1.2.11</meecrowave-maven-plugin.version>
 		<rdf4j.version>3.4.0</rdf4j.version>
-		<tomee.version>8.0.6</tomee.version>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.apache.meecrowave</groupId>
-			<artifactId>meecrowave-core</artifactId>
-			<version>${meecrowave-core.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.meecrowave</groupId>
-			<artifactId>meecrowave-jpa</artifactId>
-			<version>${meecrowave-jpa.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>com.taxonic.carml</groupId>
@@ -66,7 +53,7 @@
 			<artifactId>rdf4j-rio-jsonld</artifactId>
 			<version>${rdf4j.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-core</artifactId>
@@ -76,41 +63,40 @@
 			<groupId>com.sun.xml.bind</groupId>
 			<artifactId>jaxb-impl</artifactId>
 			<version>2.3.2</version>
-		</dependency> 
+		</dependency>
 		<dependency>
 			<groupId>javax.annotation</groupId>
 			<artifactId>javax.annotation-api</artifactId>
 			<version>1.3.1</version>
 		</dependency>
 		<dependency>
-			<groupId>com.sun.activation</groupId>
-			<artifactId>jakarta.activation</artifactId>
-			<version>2.0.0</version>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+			<version>3.4.4</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>com.zazuko.carml-service</groupId>
-			<artifactId>core</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-		</dependency> --> 
+		<!-- https://mvnrepository.com/artifact/org.apache.tomee/tomee-webapp -->
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>2.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-rs-client</artifactId>
+			<version>3.4.4</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.json</groupId>
+			<artifactId>javax.json-api</artifactId>
+			<version>1.1.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.json</artifactId>
+			<version>1.1</version>
+		</dependency>
+		 
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.meecrowave</groupId>
-				<artifactId>meecrowave-maven-plugin</artifactId>
-				<version>${meecrowave-maven-plugin.version}</version>
-				<executions>
-					<execution>
-					<id>bundle</id>
-					<phase>package</phase>
-					<goals>
-						<goal>bundle</goal>
-					</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-</project>
 
+</project>

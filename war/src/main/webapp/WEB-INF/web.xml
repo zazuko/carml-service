@@ -4,22 +4,16 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="WebApp_ID" version="3.0">
 	<display-name>zazuko-carml-service</display-name>
-
-
 	<servlet>
 		<servlet-name>CXFServlet</servlet-name>
 		<servlet-class>org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet</servlet-class>
 		<init-param>
 			<param-name>jaxrs.serviceClasses</param-name>
-
-			<param-value>com.zazuko.service.carml.CarmlEndpoint</param-value>
-
+			<param-value>com.zazuko.service.carml.CarmlEndpointCore</param-value>
 		</init-param>
 		<init-param>
 			<param-name>jaxrs.address</param-name>
-
 			<param-value>/</param-value>
-
 		</init-param>
 	</servlet>
 	<servlet-mapping>
