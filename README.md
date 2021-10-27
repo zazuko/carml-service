@@ -1,6 +1,12 @@
 # Zazuko CARML Service #
 
-This project creates a web service around the [CARML RML Engine](https://github.com/carml/carml), this allows you to send mappings and sources with a POST and will get the resulting triples.
+[CARML](https://github.com/carml/carml) is an implementation of the [RML](https://rml.io/docs/) mapping specification. It can be used to convert non-RDF data like XML, JSON or CSV to RDF.
+
+This project creates a web service around the [CARML RML Engine](https://github.com/carml/carml). This facilitates using carml as a mapping engine from non-Java/JVM projects. Via the HTTP API, one can send mappings and sources with a POST to the service and get the resulting triples back.
+
+At [Zazuko](https://zazuko.com/), we use the service to scale RDF conversion of millions of XML files by integrating the carml service in our linked data pipelining framework [barnard59](https://github.com/zazuko/barnard59). The step implementing this service can be found [here](https://github.com/zazuko/barnard59-carml-service/). 
+
+If you are looking for a command-line tool you might want to check out [carml-cli](https://github.com/netage/carml-cli) by Netage.
 
 ## Flavors ##
 
@@ -26,7 +32,7 @@ The war has test endpoint at ```service/test``` the meecrowave instance has the 
 
 ## Service ##
 
-The service at ```/```(*meecrowave*),```/service/```(*war*) expect ```multipart/form-data``` with the following fields to be POSTed
+The service at ```/```(*meecrowave*),```/service/```(*war*) expects ```multipart/form-data``` with the following fields to be POSTed
 * ```mapping``` a turtle based R2RML mapping file
 * ```source``` the source file, the formats supported are XML, CSV and JSON, indicated by the content type
 
