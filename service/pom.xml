@@ -17,11 +17,11 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<slf4j.version>1.7.25</slf4j.version>
 		<meecrowave-junit.version>1.2.0</meecrowave-junit.version>
-		<meecrowave-jpa.version>1.2.11</meecrowave-jpa.version>
-		<meecrowave-core.version>1.2.11</meecrowave-core.version>
-		<meecrowave-maven-plugin.version>1.2.11</meecrowave-maven-plugin.version>
+		<meecrowave-jpa.version>1.2.13</meecrowave-jpa.version>
+		<meecrowave-core.version>1.2.13</meecrowave-core.version>
+		<meecrowave-maven-plugin.version>1.2.13</meecrowave-maven-plugin.version>
 		<rdf4j.version>3.4.0</rdf4j.version>
-		<tomee.version>8.0.6</tomee.version>
+		<tomee.version>8.0.8</tomee.version>
 	</properties>
 
 	<dependencies>
