@@ -18,27 +18,43 @@ This project provides two flavors
 
 To build this project you need a standard maven setup
 
-```mvn clean package```
+```
+mvn clean package
+```
 
 Will generate both the Meecrowave bundle and the drop in WAR
 
 Results are available in
-```war/target/war-1.0.0-SNAPSHOT.war```
-```service/target/meecrowave-meecrowave-distribution.zip```
+`war/target/war-1.0.0-SNAPSHOT.war`
+`service/target/meecrowave-meecrowave-distribution.zip`
 
-The war should be copied in the Tomcat webapps directory, the zip distribution contains a Meecrowave instance that can be started through ```bin/meecrowave.sh run```
+The war should be copied in the Tomcat webapps directory, the zip distribution contains a Meecrowave instance that can be started through `bin/meecrowave.sh run`
 
-The war has test endpoint at ```service/test``` the meecrowave instance has the test endpoint at ```/test```
+The war has test endpoint at `service/test` the meecrowave instance has the test endpoint at `/test`
 
 ## Service ##
 
-The service at ```/```(*meecrowave*),```/service/```(*war*) expects ```multipart/form-data``` with the following fields to be POSTed
-* ```mapping``` a turtle based R2RML mapping file
-* ```source``` the source file, the formats supported are XML, CSV and JSON, indicated by the content type
+The service at `/`(*meecrowave*),`/service/`(*war*) expects `multipart/form-data` with the following fields to be POSTed
+* `mapping` a turtle based R2RML mapping file
+* `source` the source file, the formats supported are XML, CSV and JSON, indicated by the content type
 
 Headers
-* The service supports content negotiation to determine the result format through the ```Accept``` header, if none is provided it will return ```text/turtle```
+* The service supports content negotiation to determine the result format through the `Accept` header, if none is provided it will return `text/turtle`
+
+### curl example ###
+
+To process a mapping from the command line the following [curl](https://curl.se/) command can be used:
+
+```
+curl -F mapping=@mapping.ttl -F source=@source.xml -H "Accept: text/turtle" http://localhost:8080/
+```
+
+Where:
+* `mapping.ttl` is a valid R2RML mapping fle
+* `source.xml` is XML file that is described by the `mapping.ttl`
+* `text/turtle` is the requested output format
+* `http://localhost:8080` is the URI where the service is listening
+
 
 ### Results ###
-Either a RDF file in the requested format is returned with ```200 OK``` status code or a error report according to the [Problem Details for HTTP APIs
-](https://datatracker.ietf.org/doc/html/rfc7807#section-3) with a ```400``` status code.
+Either a RDF file in the requested format is returned with `200 OK` status code or a error report according to the [Problem Details for HTTP APIs](https://datatracker.ietf.org/doc/html/rfc7807#section-3) with a `400` status code.
