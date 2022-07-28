@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.zazuko.carml-service</groupId>
 		<artifactId>root</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
+		<version>1.1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>core</artifactId>
 	<packaging>jar</packaging>
@@ -15,23 +15,33 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
 		<slf4j.version>1.7.25</slf4j.version>
-		<rdf4j.version>3.4.0</rdf4j.version>
+		<rdf4j.version>4.0.4</rdf4j.version>
 	</properties>
 
 	<dependencies>
 
 		<dependency>
-			<groupId>com.taxonic.carml</groupId>
+			<groupId>io.carml</groupId>
 			<artifactId>carml-engine</artifactId>
-			<version>0.3.2</version>
+			<version>0.4.1</version>
 		</dependency>
 		<dependency>
-			<groupId>com.taxonic.carml</groupId>
+			<groupId>io.carml</groupId>
 			<artifactId>carml-logical-source-resolver-xpath</artifactId>
-			<version>0.3.2</version>
+			<version>0.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.carml</groupId>
+			<artifactId>carml-logical-source-resolver-jsonpath</artifactId>
+			<version>0.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>io.carml</groupId>
+			<artifactId>carml-logical-source-resolver-csv</artifactId>
+			<version>0.4.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.rdf4j</groupId>

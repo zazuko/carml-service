@@ -3,6 +3,7 @@ package com.zazuko.service.carml;
 import java.io.ByteArrayInputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Map;
 import java.util.Set;
 
 import javax.json.Json;
@@ -23,11 +24,13 @@ import org.eclipse.rdf4j.model.Model;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.Rio;
 
-import com.taxonic.carml.engine.RmlMapper;
-import com.taxonic.carml.logical_source_resolver.XPathResolver;
-import com.taxonic.carml.model.TriplesMap;
-import com.taxonic.carml.util.RmlMappingLoader;
-import com.taxonic.carml.vocab.Rdf;
+import io.carml.engine.rdf.RdfRmlMapper;
+import io.carml.logicalsourceresolver.XPathResolver;
+import io.carml.logicalsourceresolver.JsonPathResolver;
+import io.carml.logicalsourceresolver.CsvResolver;
+import io.carml.model.TriplesMap;
+import io.carml.util.RmlMappingLoader;
+import io.carml.vocab.Rdf;
 
 
 public class CarmlEndpointCore {
@@ -49,13 +52,17 @@ public class CarmlEndpointCore {
 				Rio.getParserFormatForMIMEType(mapping.getContentType().toString()).orElse(RDFFormat.TURTLE),
 				new ByteArrayInputStream(mapping.getObject(String.class).getBytes()));
 
-		RmlMapper mapper = RmlMapper.newBuilder().setLogicalSourceResolver(Rdf.Ql.XPath, new XPathResolver()).build();
-
-		mapper.bindInputStream("stdin", new ByteArrayInputStream(source.getObject(String.class).getBytes()));
-
+		RdfRmlMapper mapper = RdfRmlMapper.builder()
+				.triplesMaps(carmlMapping)
+				.setLogicalSourceResolver(Rdf.Ql.JsonPath, JsonPathResolver::getInstance)
+			    .setLogicalSourceResolver(Rdf.Ql.XPath, XPathResolver::getInstance)
+			    .setLogicalSourceResolver(Rdf.Ql.Csv, CsvResolver::getInstance) 
+				.build();
+		
+		
 		outputFormat = Rio.getParserFormatForMIMEType(targetType).orElse(RDFFormat.NTRIPLES);
 		try {
-			Model m = mapper.map(carmlMapping);
+			Model m = mapper.mapToModel(Map.of("stdin",new ByteArrayInputStream(source.getObject(String.class).getBytes())));
 
 			Rio.write(m, outString, outputFormat);
 		} catch (Exception e) {
