@@ -6,7 +6,7 @@ This project creates a web service around the [CARML RML Engine](https://github.
 
 At [Zazuko](https://zazuko.com/), we use the service to scale RDF conversion of millions of XML files by integrating the carml service in our linked data pipelining framework [barnard59](https://github.com/zazuko/barnard59). The step implementing this service can be found [here](https://github.com/zazuko/barnard59-carml-service/). 
 
-If you are looking for a command-line tool you might want to check out [carml-cli](https://github.com/netage/carml-cli) by Netage.
+If you are looking for a command-line tool you might want to check out [carml-jar](https://github.com/carml/carml-jar)
 
 ## Flavors ##
 
