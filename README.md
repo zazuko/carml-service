@@ -1,6 +1,6 @@
 # Zazuko CARML Service #
 
-[CARML](https://github.com/carml/carml) is an implementation of the [RML](https://rml.io/docs/) mapping specification. It can be used to convert non-RDF data like XML, JSON or CSV to RDF.
+[CARML](https://github.com/carml/carml) is an implementation of the [RML](https://rml.io/docs/) mapping specification, with [extensions](#notes-on-the-stream-extension) to process streams. It can be used to convert non-RDF data like XML, JSON or CSV to RDF.
 
 This project creates a web service around the [CARML RML Engine](https://github.com/carml/carml). This facilitates using carml as a mapping engine from non-Java/JVM projects. Via the HTTP API, one can send mappings and sources with a POST to the service and get the resulting triples back.
 
@@ -55,6 +55,32 @@ Where:
 * `text/turtle` is the requested output format
 * `http://localhost:8080` is the URI where the service is listening
 
-
 ### Results ###
 Either a RDF file in the requested format is returned with `200 OK` status code or a error report according to the [Problem Details for HTTP APIs](https://datatracker.ietf.org/doc/html/rfc7807#section-3) with a `400` status code.
+
+## Notes on the stream extension
+
+The RML spec supports file based sources by default and CARML extends this to use streams.
+This service expects a logical source that declares a stream named 'stdin'
+
+Example:
+
+```turtle
+PREFIX rml: <http://semweb.mmlab.be/ns/rml#>
+PREFIX carml: <http://carml.taxonic.com/carml/>
+PREFIX rr: <http://www.w3.org/ns/r2rml#>
+PREFIX ql: <http://semweb.mmlab.be/ns/ql#>
+
+<#person>
+a rr:TriplesMap;
+	rml:logicalSource [
+		rml:source [
+			a carml:Stream;
+			carml:streamName "stdin"
+		];
+		rml:referenceFormulation ql:JSONPath;
+		rml:iterator "$.characters[*]"
+	].
+```
+
+If you are using [XRM](https://zazuko.com/products/expressive-rdf-mapper/) plugin, set the mapping outputs to `carml` and use `stdin` instead of file-names. The plugin will produce this mapping for you.
