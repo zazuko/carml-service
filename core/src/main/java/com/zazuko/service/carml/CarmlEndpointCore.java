@@ -18,6 +18,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.jaxrs.ext.multipart.Attachment;
 import org.apache.cxf.jaxrs.ext.multipart.Multipart;
 import org.eclipse.rdf4j.model.Model;
@@ -25,9 +26,9 @@ import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.rio.Rio;
 
 import io.carml.engine.rdf.RdfRmlMapper;
-import io.carml.logicalsourceresolver.XPathResolver;
-import io.carml.logicalsourceresolver.JsonPathResolver;
 import io.carml.logicalsourceresolver.CsvResolver;
+import io.carml.logicalsourceresolver.JsonPathResolver;
+import io.carml.logicalsourceresolver.XPathResolver;
 import io.carml.model.TriplesMap;
 import io.carml.util.RmlMappingLoader;
 import io.carml.vocab.Rdf;
@@ -47,24 +48,29 @@ public class CarmlEndpointCore {
 	public Response doConversion(@HeaderParam("Accept") String targetType,
 			@Multipart(value = "mapping") Attachment mapping, @Multipart(value = "source") Attachment source) {
 		StringWriter outString = new StringWriter();
-		RDFFormat outputFormat;
-		Set<TriplesMap> carmlMapping = RmlMappingLoader.build().load(
-				Rio.getParserFormatForMIMEType(mapping.getContentType().toString()).orElse(RDFFormat.TURTLE),
-				new ByteArrayInputStream(mapping.getObject(String.class).getBytes()));
-
-		RdfRmlMapper mapper = RdfRmlMapper.builder()
-				.triplesMaps(carmlMapping)
-				.setLogicalSourceResolver(Rdf.Ql.JsonPath, JsonPathResolver::getInstance)
-			    .setLogicalSourceResolver(Rdf.Ql.XPath, XPathResolver::getInstance)
-			    .setLogicalSourceResolver(Rdf.Ql.Csv, CsvResolver::getInstance) 
-				.build();
+		RDFFormat outputFormat = Rio.getParserFormatForMIMEType(targetType).orElse(RDFFormat.NTRIPLES);
 		
-		
-		outputFormat = Rio.getParserFormatForMIMEType(targetType).orElse(RDFFormat.NTRIPLES);
 		try {
-			Model m = mapper.mapToModel(Map.of("stdin",new ByteArrayInputStream(source.getObject(String.class).getBytes())));
+			String sourceString = source.getObject(String.class);
 
-			Rio.write(m, outString, outputFormat);
+			if (StringUtils.isNotBlank(sourceString)) {
+
+				Set<TriplesMap> carmlMapping = RmlMappingLoader.build().load(
+						Rio.getParserFormatForMIMEType(mapping.getContentType().toString()).orElse(RDFFormat.TURTLE),
+						new ByteArrayInputStream(mapping.getObject(String.class).getBytes()));
+
+				RdfRmlMapper mapper = RdfRmlMapper.builder()
+						.triplesMaps(carmlMapping)
+						.setLogicalSourceResolver(Rdf.Ql.JsonPath, JsonPathResolver::getInstance)
+						.setLogicalSourceResolver(Rdf.Ql.XPath, XPathResolver::getInstance)
+						.setLogicalSourceResolver(Rdf.Ql.Csv, CsvResolver::getInstance)
+						.build();
+
+				Model m = mapper.mapToModel(Map.of("stdin", new ByteArrayInputStream(sourceString.getBytes())));
+
+				Rio.write(m, outString, outputFormat);
+			}
+
 		} catch (Exception e) {
 			StringWriter sw = new StringWriter();
 			PrintWriter pw = new PrintWriter(sw);

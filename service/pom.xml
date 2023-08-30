@@ -22,7 +22,7 @@
 		<meecrowave-maven-plugin.version>1.2.13</meecrowave-maven-plugin.version>
 		<rdf4j.version>4.2.3</rdf4j.version>
 		<tomee.version>8.0.8</tomee.version>
-		<carml.version>0.4.6</carml.version>
+		<carml.version>0.4.8</carml.version>
 	</properties>
 
 	<dependencies>
