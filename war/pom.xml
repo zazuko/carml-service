@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.zazuko.carml-service</groupId>
 		<artifactId>root</artifactId>
-		<version>1.2.0-SNAPSHOT</version>
+		<version>1.3.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>war</artifactId>
 	<packaging>war</packaging>
@@ -114,7 +114,7 @@
 		<dependency>
 			<groupId>com.zazuko.carml-service</groupId>
 			<artifactId>core</artifactId>
-			<version>1.2.0-SNAPSHOT</version>
+			<version>1.3.0-SNAPSHOT</version>
 			<scope>compiled</scope>
 		</dependency>
 	</dependencies>
